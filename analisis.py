@@ -1,13 +1,13 @@
 import pandas as pd
 from sqlalchemy import create_engine
 
-def limpieza():
+def limpieza(datos, detalles):
     pd.set_option("display.max_rows", None)
 
     csv_file_path1 = "archivos\\file_Datos.csv"
     csv_file_path2 = "archivos\\file_Secciones.csv"
-    df_Datos = pd.read_csv(csv_file_path1, encoding="latin1")
-    df_Detalles = pd.read_csv(csv_file_path2)
+    df_Datos = pd.read_csv(datos, encoding="latin1")
+    df_Detalles = pd.read_csv(detalles)
     df_Datos.drop("Unnamed: 8", axis=1, inplace=True)
     df_Detalles.dropna(inplace = True)
 

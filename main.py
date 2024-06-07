@@ -232,11 +232,13 @@ def get_estudiantes_por_carrera_edificio():
 @app.route('/cargar', methods=['POST'])
 def cargarArchivo():
     try: 
-        path_datos = request.files['fileDatos']
-        path_detalles = request.files['fileSecciones']
-        path_datos.save('archivos/file_Datos.csv')
-        path_detalles.save('archivos/file_Secciones.csv')
-        limpieza()
+        #path_datos = request.files['fileDatos']
+        #path_detalles = request.files['fileSecciones']
+        #path_datos.save('archivos/file_Datos.csv')
+        #path_detalles.save('archivos/file_Secciones.csv')
+        datos = request.files['fileDatos']
+        detalles = request.files['fileSecciones']
+        limpieza(datos, detalles)
         return jsonify({'message': 'Function executed successfully'}), 200
     except Exception as e:
         print("Error:", e)
