@@ -1,5 +1,6 @@
 import pandas as pd
 from sqlalchemy import create_engine
+import os
 
 def limpieza(datos, detalles):
     pd.set_option("display.max_rows", None)
@@ -67,7 +68,7 @@ def limpieza(datos, detalles):
     df_Tabla_Seccion["seccion"] = df_Tabla_Seccion["seccion"].astype(int)
     df_Tabla_Seccion["dias_habiles"] = df_Tabla_Seccion["dias_habiles"].astype(int).astype(str)
 
-    engine = create_engine('sqlite:///instance/database.db')
+    engine = create_engine(os.environ.get("DATABASE_URL"))
     # Guardar el DataFrame en la base de datos SQLite
     df_Tabla_Estudiantes.to_sql('Estudiante', engine, index=False, if_exists='replace')
     df_Tabla_Carrera.to_sql('Carrera', engine, index=False, if_exists='replace')
