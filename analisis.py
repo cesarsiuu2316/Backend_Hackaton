@@ -60,7 +60,8 @@ def limpieza(datos, detalles):
 
     df_Tabla_Estudiantes = df_Datos[["CUENTA", "CARRERA"]]
     df_Tabla_Estudiantes.columns = ["cuenta", "carrera"]
-    df_Tabla_Carrera = pd.read_excel("archivos\\Carreras Unitec.xlsx")
+    file_path = os.path.join(os.getcwd(), 'archivos', 'Carreras Unitec.xlsx')
+    df_Tabla_Carrera = pd.read_excel(file_path)
     df_Tabla_Seccion = df_Detalles
     df_Tabla_EstudiantesPorSeccion = df_Datos[["CUENTA", "SECCION"]]
     df_Tabla_EstudiantesPorSeccion.columns = ["cuenta", "seccion"]
