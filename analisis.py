@@ -69,6 +69,7 @@ def limpieza(datos, detalles):
     df_Tabla_Seccion["dias_habiles"] = df_Tabla_Seccion["dias_habiles"].astype(int).astype(str)
 
     engine = create_engine(os.environ.get("DATABASE_URL"))
+    print(os.environ.get("DATABASE_URL"))
     # Guardar el DataFrame en la base de datos SQLite
     df_Tabla_Estudiantes.to_sql('Estudiante', engine, index=False, if_exists='replace')
     df_Tabla_Carrera.to_sql('Carrera', engine, index=False, if_exists='replace')
