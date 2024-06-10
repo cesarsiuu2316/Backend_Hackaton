@@ -208,6 +208,8 @@ def get_estudiantes_por_carrera_edificio():
         db.func.count().label('estudiantes')
     ).join(
         subquery2, subquery1.c.cuenta == subquery2.c.cuenta
+    ).join(
+        Estudiante, subquery1.c.cuenta == Estudiante.cuenta
     ).filter(
         Estudiante.carrera == carrera
     ).group_by(
