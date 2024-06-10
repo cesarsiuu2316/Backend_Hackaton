@@ -231,6 +231,7 @@ def get_estudiantes_por_carrera_edificio():
         return jsonify(result)
 
     except Exception as e:
+        print("Error:", e)
         return jsonify({"error": str(e)}), 500
 
 @app.route('/cargar', methods=['POST'])
