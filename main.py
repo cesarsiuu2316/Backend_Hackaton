@@ -201,31 +201,37 @@ def get_estudiantes_por_carrera_edificio():
         Seccion.dias_habiles.contains(dia)
     ).subquery()
     
+    try:
     # Join the two subqueries to find students in both times
-    results = db.session.query(
-        subquery1.c.edificio_anterior,
-        subquery2.c.edificio_nuevo,
-        db.func.count().label('estudiantes')
-    ).join(
-        subquery2, subquery1.c.cuenta == subquery2.c.cuenta
-    ).join(
-        Estudiante, EstudiantePorSeccion.cuenta == Estudiante.cuenta
-    ).filter(
-        Estudiante.carrera == carrera
-    ).group_by(
-        subquery1.c.edificio_anterior,
-        subquery2.c.edificio_nuevo
-    ).all()
-    
-    # Format the result
-    result = [
-        {
-            "edificio_anterior": row.edificio_anterior,
-            "edificio_nuevo": row.edificio_nuevo,
-            "estudiantes": row.estudiantes
-        }
-        for row in results
-    ]
+        results = db.session.query(
+            subquery1.c.edificio_anterior,
+            subquery2.c.edificio_nuevo,
+            db.func.count().label('estudiantes')
+        ).join(
+            subquery2, subquery1.c.cuenta == subquery2.c.cuenta
+        ).join(
+            Estudiante, EstudiantePorSeccion.cuenta == Estudiante.cuenta
+        ).filter(
+            Estudiante.carrera == carrera
+        ).group_by(
+            subquery1.c.edificio_anterior,
+            subquery2.c.edificio_nuevo
+        ).all()
+        
+        # Format the result
+        result = [
+            {
+                "edificio_anterior": row.edificio_anterior,
+                "edificio_nuevo": row.edificio_nuevo,
+                "estudiantes": row.estudiantes
+            }
+            for row in results
+        ]
+        
+        return jsonify(result)
+
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
     
     return jsonify(result)
 
