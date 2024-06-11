@@ -58,7 +58,7 @@ def limpieza(datos, detalles):
     #print(df_Detalles)
     # datos_por_carrera = df_Datos.groupby("CARRERA").count()
 
-    df_Tabla_Estudiantes = df_Datos[["CUENTA", "CARRERA"]]
+    df_Tabla_Estudiantes = df_Datos[["CUENTA", "CARRERA"]].drop_duplicates()
     df_Tabla_Estudiantes.columns = ["cuenta", "carrera"]
     file_path = os.path.join(os.getcwd(), 'archivos', 'Carreras Unitec.xlsx')
     df_Tabla_Carrera = pd.read_excel(file_path)
